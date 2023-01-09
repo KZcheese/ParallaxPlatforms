@@ -10,7 +10,7 @@ float gravity = 9.8/5;
 color playerColor = color(0, 190, 255);
 PVector camera = new PVector(0, 0), startingPos;
 Player p;
-boolean up = false, down = false, left = false, right = false, grounded = false, drawGrid = true, orderedPlats = true;
+boolean up = false, down = false, left = false, right = false, grounded = false, drawGrid = false, orderedPlats = true;
 ArrayList<Platform> platforms = new ArrayList<Platform>();
 
 //make a windows with stuff. yay stuff
