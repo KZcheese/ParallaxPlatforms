@@ -26,6 +26,7 @@ class Platform {
 
   //Draw the platform
   void render() {
+    //float distanceFade = (1 - (location.z - 1)) * (maxOpacity - minOpacity) + minOpacity;
     fill(c);
     rect(pos.x, pos.y, pWidth, pHeight);
   }

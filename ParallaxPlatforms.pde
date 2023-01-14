@@ -4,25 +4,34 @@
 //Because of this platforms move unpredictably.
 //Controls: left and right or a and d to move, up or w to jump, down or s to fall through platforms
 
-//lots of adjustable parameters
-int jumpVel = 45, friction = 2, maxVel = 20, numPlats = 10, maxFall = 30, checkBoardSize = 200, playerSize = 50, backDepth = 5;
+//physics parameters
+int jumpVel = 45, friction = 2, maxVel = 20, maxFall = 30;
 float gravity = 9.8/5;
+
+// level parameters
+int numPlats = 10, checkBoardSize = 200, backDepth = 5, minOpacity = 64, maxOpacity = 255;
+float minDepth = 0.8, maxDepth = 2.0;
+boolean drawGrid = false, orderedPlats = true;
+
+// player parameters
+int playerSize = 50;
 color playerColor = color(0, 190, 255);
 PVector camera = new PVector(0, 0), startingPos;
 Player p;
-boolean up = false, down = false, left = false, right = false, grounded = false, drawGrid = false, orderedPlats = true;
+boolean up = false, down = false, left = false, right = false, grounded = false;
 ArrayList<Platform> platforms = new ArrayList<Platform>();
 
 //make a windows with stuff. yay stuff
 void setup() {
   //use P2D instead of the default software renderer because lots of platforms = lag
-  size(1600, 900, P2D);
+  //size(1600, 900, P2D);
+  fullScreen(P2D);
 
   //no blurry bullshit here
   noSmooth();
 
   //because the default strokeWeight of 1 is ugly as sin
-  strokeWeight(2);
+  strokeWeight(0);
 
   //set the player's position on screen based on the window size
   startingPos = new PVector(width/2 - playerSize/2, height*2/3 - playerSize/2);
@@ -33,11 +42,11 @@ void setup() {
   platforms.add(new Platform(new PVector(-10000/2, floorHeight, 0), 10000, 10000, color(0)));
 
   //generate a set grid of platforms
-  //good for demonstrating the parralax
+  //good for demonstrating the parallax
   if (orderedPlats) {
     for (int i = -numPlats; i < numPlats; i++) 
       for (int j = -numPlats; j*300 < (floorHeight); j++) 
-        platforms.add(new Platform(new PVector (i * 400, j*200, random(0.8, 2)), 200, 75, color(random(0, 255), random(0, 255), random(0, 255))));
+        platforms.add(new Platform(new PVector (i * 400, j*200, random(minDepth, maxDepth)), 200, 75, color(random(32, 224), random(32, 224), random(32, 224))));
   } else {
     //randomly generates platforms
     for (int i = 0; i < numPlats; i++) 
